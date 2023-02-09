@@ -1,0 +1,230 @@
+/* high level styling */
+:root {
+  --bg-shade: rgba(0, 0, 0, 0.4);
+  --main-text-color: white;
+  --text-font: 'Courier New', Courier, monospace;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  color: white;
+  font-family:var(--text-font)
+}
+
+#container {
+  background-color: var(--bg-shade);
+  height: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 6fr 2fr;
+  gap: 40px;
+}
+button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* day nav bar styling */
+#dayNav {
+  grid-row: 1/2;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 90%;
+  font-size: 1.5rem;
+}
+
+.day {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.day button {
+  font-size: 1.3rem;
+  color: white;
+  font-family: var(--text-font);
+  background: none;
+  border: none;
+}
+
+
+
+
+
+/* central content styling */
+
+#centralInfo {
+  grid-row: 2/3;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+
+  /* weather info col styling */
+#weatherInfo {
+  height: 70%;
+  flex: 1;
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 10px;
+}
+.weatherCard, .surfCard {
+  flex: 1;
+  width: 80%;
+}
+
+
+
+  /* search & map styling */
+#search {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#map {
+  flex: 5;
+  width: 50%;
+  height: 40%;
+  border: 5px solid white;
+  border-radius: 10px;
+  opacity: 65%;
+}
+.gm-style-iw-d {
+  color: black;
+}
+#button {
+  flex: 1;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+}
+#button button {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: white;
+  font-family: var(--text-font);
+}
+
+
+
+  /* surf info bar styling */
+#surfInfo {
+  height: 70%;
+  flex: 1;
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.surfCard {
+  font-size: 1.2rem;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.surfCard img {
+  height: 30px;
+  filter: invert(100%);
+}
+.surfCard div p {
+  margin:0;
+}
+.surfCard div :nth-child(1) {
+  font-size: 0.9rem;
+}
+.surfCard div :nth-child(2) {
+  font-size: 1.8rem;
+}
+
+
+
+
+/* hourly surf report styling */
+
+#hourlyReport {
+  grid-row: 3/4;
+  justify-self: center;
+  gap: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+}
+.hours {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hour {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.hour p {
+  margin: 0;
+}
+.hour :nth-child(1) {
+  font-size: 1.5rem;
+}
+.hour img {
+  height: 40px;
+  filter: invert(100%);
+}
+
+.pagination {
+  height: 40px;
+  filter: invert(100%);
+}
+.pagination:hover {
+  transform: scale(105%);
+  transition: all 0.2s;
+}
+.pagination:active {
+  transform: scale(90%);
+}
+
+
+
+
+#slider,
+.slide-content {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+.slide{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.slide-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
