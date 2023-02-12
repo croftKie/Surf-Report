@@ -109,7 +109,8 @@ function windDirection(selectedDay){
         avgDegrees += e.windDirection.noaa
     });
     avgDegrees = avgDegrees/data[selectedDay].length;
-    document.getElementById('windDirection').textContent = `${avgDegrees.toPrecision(3)} degrees`;
+    document.getElementById('windDirection').textContent = `${degreeToCardinal(avgDegrees)}`;
+    console.log(avgDegrees)
 }
 
 // populates wind speed DOM module
@@ -157,8 +158,31 @@ function windHourly(selectedDay){
     let count = 0;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 8; j++) {
-            hoursArrDom[i][j].childNodes[2].textContent = `${hoursData[count].toPrecision(3)} deg`;
+            hoursArrDom[i][j].childNodes[2].textContent = `${degreeToCardinal(hoursData[count])}`;
             count++;
         }
     }
+}
+
+
+function degreeToCardinal(avgDegrees){
+    let direction;
+    if (avgDegrees > 337 && avgDegrees <= 22) {
+        direction = "North";
+    } else if (avgDegrees > 22 && avgDegrees <= 67) {
+        direction = "North East";
+    } else if (avgDegrees > 67 && avgDegrees <= 112) {
+        direction = "East";
+    } else if (avgDegrees > 112 && avgDegrees <= 157) {
+        direction = "South East";
+    } else if (avgDegrees > 157 && avgDegrees <= 202) {
+        direction = "South";
+    } else if (avgDegrees > 202 && avgDegrees <= 247) {
+        direction = "South West";
+    } else if (avgDegrees > 247 && avgDegrees <= 292) {
+        direction = "West";
+    } else if (avgDegrees > 292 && avgDegrees <= 337) {
+        direction = "North West";
+    }
+    return direction;
 }
