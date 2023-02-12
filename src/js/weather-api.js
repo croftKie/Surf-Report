@@ -1,7 +1,7 @@
 // import { location } from "./init-map";
 import { apiRef } from "../../config";
 
-const weatherAPI = apiRef.weather;
+// const weatherAPI = apiRef.weather;
 
 // const locTemplate = {
 //     lat : 54.24360253672103,
@@ -17,7 +17,7 @@ const weatherAPI = apiRef.weather;
 
 //     fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
 //   headers: {
-//     'Authorization': weatherAPI;
+//     'Authorization': weatherAPI
 //   }
 // }).then((response) => response.json()).then((jsonData) => {
 //   data = jsonData;

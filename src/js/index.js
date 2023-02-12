@@ -2,7 +2,6 @@ import '../css/style.css'
 import bg from '../assets/images/waves.jpeg'
 // import { main } from "./weather-api";
 import { slide } from "./slide";
-import { currentForecast } from "./weather-data"
 import { dom } from "./dom";
 
 document.querySelector('body').style.backgroundImage = `url(${bg})`;
@@ -11,6 +10,13 @@ document.querySelector('body').style.backgroundImage = `url(${bg})`;
 dom();
 slide();
 
+
+
+
+
+
+
+// sets up Google Map
 window.initMap = initMap;
 
 let location = {};
@@ -42,7 +48,7 @@ function initMap() {
     });
 }
 
-// dynamically add your map
+// dynamically add map
 var tag = document.createElement('script');
 tag.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBsU8O-lE3TtQzQrZRHV47FW9dHWsJaP9g&callback=initMap";
 tag.defer = true;
