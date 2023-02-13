@@ -48,8 +48,7 @@ function initMap() {
         infoWindow.close();
         // Create a new InfoWindow.
         infoWindow = new google.maps.InfoWindow({
-            content: `Ready to surf? ${mapsMouseEvent.latLng}`,
-            position: mapsMouseEvent.latLng,
+            content: `Ready to surf? ${mapsMouseEvent.latLng}`
         });
         location = mapsMouseEvent.latLng.toJSON();
         infoWindow.open(map);
