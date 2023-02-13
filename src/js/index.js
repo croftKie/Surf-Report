@@ -4,9 +4,11 @@ import { main } from "./weather-api";
 import { slide } from "./slide";
 import { dom } from "./dom";
 
+let myLatlng = { lat: -25.363, lng: 131.044 };
 document.querySelector('body').style.backgroundImage = `url(${bg})`;
 
 document.getElementById('button').addEventListener('click',(e)=>{
+    myLatlng = location;
     main(myLatlng);
     console.log(myLatlng);
     e.target.childNodes[0].textContent = "Choose a day";
@@ -22,7 +24,7 @@ dom();
 slide();
 
 
-let myLatlng = { lat: -25.363, lng: 131.044 };
+
 
 // sets up Google Map
 window.initMap = initMap;
