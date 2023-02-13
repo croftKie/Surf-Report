@@ -1,27 +1,34 @@
 import '../css/style.css'
 import bg from '../assets/images/waves.jpeg'
-// import { main } from "./weather-api";
+import { main } from "./weather-api";
 import { slide } from "./slide";
 import { dom } from "./dom";
 
 document.querySelector('body').style.backgroundImage = `url(${bg})`;
 
-// main();
+document.getElementById('button').addEventListener('click',(e)=>{
+    main(myLatlng);
+    console.log(myLatlng);
+    e.target.childNodes[0].textContent = "Choose a day";
+    e.target.style.pointerEvents = 'none';
+
+    setTimeout(()=>{
+        e.target.childNodes[0].textContent = "Let's Surf";
+        e.target.style.pointerEvents = 'auto';
+    },4000)
+});
+
 dom();
 slide();
 
 
-
-
-
-
+let myLatlng = { lat: -25.363, lng: 131.044 };
 
 // sets up Google Map
 window.initMap = initMap;
 
 let location = {};
 function initMap() {
-    const myLatlng = { lat: -25.363, lng: 131.044 };
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
         center: myLatlng,
@@ -43,7 +50,6 @@ function initMap() {
             position: mapsMouseEvent.latLng,
         });
         location = mapsMouseEvent.latLng.toJSON();
-        console.log(location);
         infoWindow.open(map);
     });
 }
@@ -54,3 +60,5 @@ tag.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBsU8O-lE3TtQzQrZRHV
 tag.defer = true;
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+

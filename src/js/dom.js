@@ -1,30 +1,29 @@
-import { currentForecast } from "./weather-data";
-
-
-
-const data = currentForecast();
 
 // DOM module modification on change of day
-export function dom() {
+export function dom(surfData) {
     const buttons = document.querySelectorAll('.d');
     let count = 0;
-    buttons.forEach((e)=>{
-        e.textContent = Object.keys(data)[count];
-        count++
-        e.addEventListener('click',()=>{
-            dateDom(e.textContent,
-                    data[e.textContent][0].time.getDate(),
-                    data[e.textContent][0].time.getMonth(),
-                    data[e.textContent][0].time.getFullYear());
-            airTemp(e.textContent);
-            waveHeight(e.textContent);
-            wavePeriod(e.textContent);
-            windDirection(e.textContent);
-            windSpeed(e.textContent);
-            waveHourly(e.textContent);
-            windHourly(e.textContent);
+    try {
+        buttons.forEach((e)=>{
+            e.textContent = Object.keys(surfData)[count];
+            count++
+            e.addEventListener('click',()=>{
+                dateDom(e.textContent,
+                    surfData[e.textContent][0].time.getDate(),
+                    surfData[e.textContent][0].time.getMonth(),
+                    surfData[e.textContent][0].time.getFullYear());
+                airTemp(surfData, e.textContent);
+                waveHeight(surfData, e.textContent);
+                wavePeriod(surfData, e.textContent);
+                windDirection(surfData, e.textContent);
+                windSpeed(surfData, e.textContent);
+                waveHourly(surfData, e.textContent);
+                windHourly(surfData, e.textContent);
+            });
         });
-    });
+    } catch (error) {
+        return;
+    }
 }
 
 // populates date/day DOM module
@@ -72,96 +71,143 @@ function dateDom(selectedDay, currentDate, currentMonth, currentYears){
 }
 
 // populates air temp DOM module
-function airTemp(selectedDay){
-    let avgTemp = 0;
-    data[selectedDay].forEach((e)=>{
-        avgTemp += e.airTemperature.noaa
-    });
-    avgTemp = avgTemp/data[selectedDay].length;
-    document.getElementById('airTemp').textContent = `${avgTemp.toPrecision(2)}°C`;
+function airTemp(data, selectedDay){
+    try {
+        let avgTemp = 0;
+        data[selectedDay].forEach((e)=>{
+            avgTemp += e.airTemperature.noaa
+        });
+        avgTemp = avgTemp/data[selectedDay].length;
+        document.getElementById('airTemp').textContent = `${avgTemp.toPrecision(2)}°C`;
+    } catch {
+        document.getElementById('airTemp').textContent = `Not Avail.`;
+    }
 }
 
 
 // populates wave height DOM module
-function waveHeight(selectedDay){
-    let avgHeight = 0;
-    data[selectedDay].forEach((e)=>{
-        avgHeight += e.waveHeight.noaa
-    });
-    avgHeight = avgHeight/data[selectedDay].length;
-    document.getElementById('waveHeight').textContent = `${avgHeight.toPrecision(2)}m`;
+function waveHeight(data, selectedDay){
+    try {
+        let avgHeight = 0;
+        data[selectedDay].forEach((e)=>{
+            avgHeight += e.waveHeight.noaa
+        });
+        avgHeight = avgHeight/data[selectedDay].length;
+        document.getElementById('waveHeight').textContent = `${avgHeight.toPrecision(2)}m`;
+    } catch {
+        document.getElementById('waveHeight').textContent = `Not Avail`;
+    }
+
 }
 
 // populates wave period DOM module
-function wavePeriod(selectedDay){
-    let avgTime = 0;
-    data[selectedDay].forEach((e)=>{
-        avgTime += e.wavePeriod.noaa
-    });
-    avgTime = avgTime/data[selectedDay].length;
-    document.getElementById('wavePeriod').textContent = `${avgTime.toPrecision(2)}s`;
+function wavePeriod(data, selectedDay){
+    try {
+        let avgTime = 0;
+        data[selectedDay].forEach((e)=>{
+            avgTime += e.wavePeriod.noaa
+        });
+        avgTime = avgTime/data[selectedDay].length;
+        document.getElementById('wavePeriod').textContent = `${avgTime.toPrecision(2)}s`;
+    } catch {
+        document.getElementById('wavePeriod').textContent = `Not Avail`;
+    }
+
+
 }
 
 // populates wind direction DOM module
-function windDirection(selectedDay){
-    let avgDegrees = 0;
-    data[selectedDay].forEach((e)=>{
-        avgDegrees += e.windDirection.noaa
-    });
-    avgDegrees = avgDegrees/data[selectedDay].length;
-    document.getElementById('windDirection').textContent = `${degreeToCardinal(avgDegrees)}`;
-    console.log(avgDegrees)
+function windDirection(data, selectedDay){
+    try {
+        let avgDegrees = 0;
+        data[selectedDay].forEach((e)=>{
+            avgDegrees += e.windDirection.noaa
+        });
+        avgDegrees = avgDegrees/data[selectedDay].length;
+        document.getElementById('windDirection').textContent = `${degreeToCardinal(avgDegrees)}`;
+    } catch {
+        document.getElementById('windDirection').textContent = `Not Avail`;
+    }
+
+
 }
 
 // populates wind speed DOM module
-function windSpeed(selectedDay){
-    let avgSpeed = 0;
-    data[selectedDay].forEach((e)=>{
-        avgSpeed += e.windSpeed.noaa
-    });
-    avgSpeed = avgSpeed/data[selectedDay].length;
-    document.getElementById('windSpeed').textContent = `${avgSpeed.toPrecision(2)}m/s`;
+function windSpeed(data, selectedDay){
+    try {
+        let avgSpeed = 0;
+        data[selectedDay].forEach((e)=>{
+            avgSpeed += e.windSpeed.noaa
+        });
+        avgSpeed = avgSpeed/data[selectedDay].length;
+        document.getElementById('windSpeed').textContent = `${avgSpeed.toPrecision(2)}m/s`;
+    } catch {
+        document.getElementById('windSpeed').textContent = `Not Avail`;
+    }
+
 }
 
 // populate hourly wave height module
-function waveHourly(selectedDay){
+function waveHourly(data, selectedDay){
     let hoursDom = document.querySelectorAll('.hours');
     let hoursArrDom = [];
+    let hoursData = [];
     hoursDom.forEach((hour)=>{
         hoursArrDom.push(hour.childNodes);
     });
-    let hoursData = [];
-    data[selectedDay].forEach((e)=>{
-        hoursData.push(e.waveHeight.noaa);
-    });
-    let count = 0;
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 8; j++) {
-            hoursArrDom[i][j].childNodes[1].textContent = `${hoursData[count]}m`;
-            count++;
+    try {
+        data[selectedDay].forEach((e)=>{
+            hoursData.push(e.waveHeight.noaa);
+        });
+        let count = 0;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 8; j++) {
+                hoursArrDom[i][j].childNodes[1].textContent = `${hoursData[count]}m`;
+                count++;
+            }
+        }
+    } catch {
+        let count = 0;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 8; j++) {
+                hoursArrDom[i][j].childNodes[1].textContent = `Not Avail`;
+                count++;
+            }
         }
     }
+
 }
 
 
 // populate hourly wind direction module
-function windHourly(selectedDay){
+function windHourly(data, selectedDay){
     let hoursDom = document.querySelectorAll('.hours');
     let hoursArrDom = [];
+    let hoursData = [];
     hoursDom.forEach((hour)=>{
         hoursArrDom.push(hour.childNodes);
     });
-    let hoursData = [];
-    data[selectedDay].forEach((e)=>{
-        hoursData.push(e.windDirection.noaa);
-    });
-    let count = 0;
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 8; j++) {
-            hoursArrDom[i][j].childNodes[2].textContent = `${degreeToCardinal(hoursData[count])}`;
-            count++;
+    try {
+        data[selectedDay].forEach((e)=>{
+            hoursData.push(e.windDirection.noaa);
+        });
+        let count = 0;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 8; j++) {
+                hoursArrDom[i][j].childNodes[2].textContent = `${degreeToCardinal(hoursData[count])}`;
+                count++;
+            }
+        }
+    } catch {
+        let count = 0;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 8; j++) {
+                hoursArrDom[i][j].childNodes[2].textContent = `Not Avail`;
+                count++;
+            }
         }
     }
+
 }
 
 
