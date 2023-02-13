@@ -1,3 +1,4 @@
+const noDataRef = 'No Data';
 
 // DOM module modification on change of day
 export function dom(surfData) {
@@ -80,7 +81,7 @@ function airTemp(data, selectedDay){
         avgTemp = avgTemp/data[selectedDay].length;
         document.getElementById('airTemp').textContent = `${avgTemp.toPrecision(2)}°C`;
     } catch {
-        document.getElementById('airTemp').textContent = `Not Avail.`;
+        document.getElementById('airTemp').textContent = noDataRef;
     }
 }
 
@@ -95,7 +96,7 @@ function waveHeight(data, selectedDay){
         avgHeight = avgHeight/data[selectedDay].length;
         document.getElementById('waveHeight').textContent = `${avgHeight.toPrecision(2)}m`;
     } catch {
-        document.getElementById('waveHeight').textContent = `Not Avail`;
+        document.getElementById('waveHeight').textContent = noDataRef;
     }
 
 }
@@ -110,7 +111,7 @@ function wavePeriod(data, selectedDay){
         avgTime = avgTime/data[selectedDay].length;
         document.getElementById('wavePeriod').textContent = `${avgTime.toPrecision(2)}s`;
     } catch {
-        document.getElementById('wavePeriod').textContent = `Not Avail`;
+        document.getElementById('wavePeriod').textContent = noDataRef;
     }
 
 
@@ -126,7 +127,7 @@ function windDirection(data, selectedDay){
         avgDegrees = avgDegrees/data[selectedDay].length;
         document.getElementById('windDirection').textContent = `${degreeToCardinal(avgDegrees)}`;
     } catch {
-        document.getElementById('windDirection').textContent = `Not Avail`;
+        document.getElementById('windDirection').textContent = noDataRef;
     }
 
 
@@ -142,7 +143,7 @@ function windSpeed(data, selectedDay){
         avgSpeed = avgSpeed/data[selectedDay].length;
         document.getElementById('windSpeed').textContent = `${avgSpeed.toPrecision(2)}m/s`;
     } catch {
-        document.getElementById('windSpeed').textContent = `Not Avail`;
+        document.getElementById('windSpeed').textContent = noDataRef;
     }
 
 }
@@ -170,7 +171,7 @@ function waveHourly(data, selectedDay){
         let count = 0;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 8; j++) {
-                hoursArrDom[i][j].childNodes[1].textContent = `Not Avail`;
+                hoursArrDom[i][j].childNodes[1].textContent = noDataRef;
                 count++;
             }
         }
@@ -202,7 +203,7 @@ function windHourly(data, selectedDay){
         let count = 0;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 8; j++) {
-                hoursArrDom[i][j].childNodes[2].textContent = `Not Avail`;
+                hoursArrDom[i][j].childNodes[2].textContent = noDataRef;
                 count++;
             }
         }
